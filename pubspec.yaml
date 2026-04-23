@@ -1,0 +1,73 @@
+name: habit_pulse
+description: "Habit management with Pavlok integration. Track good and bad habits, and deliver stimuli via the Pavlok API."
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.5.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.8
+
+  # State management
+  flutter_riverpod: ^2.5.1
+  riverpod_annotation: ^2.3.5
+
+  # Navigation
+  go_router: ^14.2.0
+
+  # Networking & Pavlok API
+  dio: ^5.5.0+1
+  retry: ^3.1.2
+  connectivity_plus: ^6.0.3
+
+  # Local database & storage
+  sqflite: ^2.3.3+1
+  sqflite_common_ffi: ^2.3.4
+  path: ^1.9.0
+  path_provider: ^2.1.3
+  shared_preferences: ^2.2.3
+
+  # Background tasks & notifications
+  workmanager: ^0.5.2
+  flutter_local_notifications: ^17.2.1
+
+  # Utilities
+  freezed_annotation: ^2.4.4
+  json_annotation: ^4.9.0
+  uuid: ^4.4.2
+  intl: ^0.19.0
+  logger: ^2.3.0
+  package_info_plus: ^8.0.0
+
+  # UI / UX
+  flex_color_scheme: ^7.3.1
+  google_fonts: ^6.2.1
+  flutter_slidable: ^3.1.1
+  flutter_staggered_animations: ^1.1.1
+  shimmer: ^3.0.0
+  fl_chart: ^0.68.0
+
+  # Date/time utilities
+  timezone: ^0.9.4
+
+  # Collection utilities
+  collection: ^1.18.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+  build_runner: ^2.4.11
+  freezed: ^2.5.2
+  json_serializable: ^6.8.0
+  riverpod_generator: ^2.4.0
+  custom_lint: ^0.6.4
+  riverpod_lint: ^2.3.10
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/

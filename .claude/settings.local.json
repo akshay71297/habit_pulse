@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(grep '\\\\.png$' graphify-out/.graphify_uncached.txt)",
+      "Bash(grep -v '\\\\.png$' graphify-out/.graphify_uncached.txt)",
+      "Bash(grep -v '\\\\.dart$')",
+      "Bash(grep *)"
+    ]
+  }
+}
