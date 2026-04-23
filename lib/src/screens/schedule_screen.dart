@@ -138,7 +138,7 @@ class _ScheduleCard extends ConsumerWidget {
                       _ActionIcon(
                         icon: Icons.delete_outline_rounded,
                         color: const Color(0xFFFF3B30),
-                        onTap: () => ref.read(scheduledStimulusListProvider.notifier).delete(schedule.id),
+                        onTap: () => _confirmDelete(context, ref),
                       ),
                     ],
                   ),
@@ -180,6 +180,32 @@ class _ScheduleCard extends ConsumerWidget {
             ),
           ),
         ),
+      ),
+    );
+  }
+
+  void _confirmDelete(BuildContext context, WidgetRef ref) {
+    showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        backgroundColor: const Color(0xFF1C1C2E),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        title: const Text('Delete Schedule?', style: TextStyle(color: Colors.white)),
+        content: Text('"${schedule.name}" will be permanently removed.', style: const TextStyle(color: Colors.white70)),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(ctx),
+            child: const Text('Cancel', style: TextStyle(color: Color(0xFF4DA6FF))),
+          ),
+          TextButton(
+            onPressed: () {
+              ref.read(scheduledStimulusListProvider.notifier).delete(schedule.id);
+              Navigator.pop(ctx);
+              context.showSnackBar('Schedule deleted');
+            },
+            child: const Text('Delete', style: TextStyle(color: Color(0xFFFF3B30))),
+          ),
+        ],
       ),
     );
   }
