@@ -3,10 +3,16 @@ import 'package:habit_pulse/src/database/settings_dao.dart';
 import 'package:habit_pulse/src/models/pavlok_settings.dart';
 import 'package:habit_pulse/src/providers/database_providers.dart';
 import 'package:habit_pulse/src/services/pavlok_api_service.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 final pavlokSettingsProvider = FutureProvider<PavlokSettings?>((ref) async {
   final dao = ref.watch(settingsDaoProvider);
-  return dao.getSettings();
+  final settings = await dao.getSettings();
+  if (settings != null && settings.apiToken.isNotEmpty) {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('pavlok_api_token', settings.apiToken);
+  }
+  return settings;
 });
 
 final pavlokApiServiceProvider = Provider<PavlokApiService>((ref) {
@@ -30,6 +36,8 @@ class SettingsNotifier extends StateNotifier<AsyncValue<void>> {
     state = await AsyncValue.guard(() async {
       await _dao.saveSettings(settings);
       _apiService.updateSettings(settings);
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setString('pavlok_api_token', settings.apiToken);
     });
   }
 
@@ -63,7 +71,11 @@ class SettingsNotifier extends StateNotifier<AsyncValue<void>> {
 
   Future<void> clearToken() async {
     state = const AsyncValue.loading();
-    state = await AsyncValue.guard(() => _dao.clearToken());
+    state = await AsyncValue.guard(() async {
+      await _dao.clearToken();
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.remove('pavlok_api_token');
+    });
   }
 }
 

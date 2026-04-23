@@ -33,6 +33,7 @@ dependencies:
   # Background tasks & notifications
   workmanager: ^0.5.2
   flutter_local_notifications: ^17.2.1
+  home_widget: ^0.7.0
 
   # Utilities
   freezed_annotation: ^2.4.4

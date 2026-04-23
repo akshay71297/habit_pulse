@@ -164,26 +164,63 @@ class _StimulusScreenState extends ConsumerState<StimulusScreen> {
                   height: 56,
                   child: ElevatedButton(
                     onPressed: isLoading
-                        ? null
-                        : () async {
-                            final messenger = ScaffoldMessenger.of(context);
-                            await ref.read(stimulusNotifierProvider.notifier).send(
-                                  type: _selectedType,
-                                  value: _intensity.toInt(),
-                                );
-                            if (mounted) {
-                              final error = ref.read(stimulusNotifierProvider).error;
-                              messenger.showSnackBar(
-                                SnackBar(
-                                  content: Text(error != null ? error.toString() : '${_selectedType.name.toUpperCase()} sent!'),
-                                  backgroundColor: error != null ? const Color(0xFFFF3B30) : const Color(0xFF34C759),
-                                  behavior: SnackBarBehavior.floating,
-                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                                  margin: const EdgeInsets.all(12),
-                                ),
-                              );
-                            }
-                          },
+                  ? null
+                  : () async {
+                      final messenger = ScaffoldMessenger.of(context);
+                      bool flag = true;
+                      if (_intensity.toInt() >= 50 && _selectedType == StimulusType.zap) {
+                        if (_intensity.toInt() > 65) {
+                          _intensity = 65;
+                        }
+                        flag = await _confirmZap(context, 1);
+                        if (flag && _intensity.toInt() >= 60) {
+                          flag = await _confirmZap(context, 2);
+                        }
+                        if (flag && _intensity.toInt() >= 65) {
+                          flag = await _confirmZap(context, 3);
+                        }
+                        if (flag && _intensity.toInt() >= 75) {
+                          flag = await _confirmZap(context, 4);
+                        }
+                        if (flag && _intensity.toInt() >= 80) {
+                          flag = await _confirmZap(context, 5);
+                        }
+                        if (flag && _intensity.toInt() >= 90) {
+                          flag = await _confirmZap(context, 6);
+                        }
+                        if (flag && _intensity.toInt() >= 95) {
+                          flag = await _confirmZap(context, 7);
+                        }
+                      }
+                      if (!flag) return;
+
+                      await ref.read(stimulusNotifierProvider.notifier).send(
+                            type: _selectedType,
+                            value: _intensity.toInt(),
+                          );
+
+                      if (!mounted) return;
+
+                      final error = ref.read(stimulusNotifierProvider).error;
+
+                      messenger.showSnackBar(
+                        SnackBar(
+                          content: Text(
+                            error != null
+                                ? error.toString()
+                                : '${_selectedType.name.toUpperCase()} sent!',
+                          ),
+                          backgroundColor: error != null
+                              ? const Color(0xFFFF3B30)
+                              : const Color(0xFF34C759),
+                          behavior: SnackBarBehavior.floating,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          margin: const EdgeInsets.all(12),
+                        ),
+                      );
+                    },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: _accentColor,
                       foregroundColor: Colors.white,
@@ -217,6 +254,47 @@ class _StimulusScreenState extends ConsumerState<StimulusScreen> {
         ),
       ),
     );
+  }
+
+  Future<bool> _confirmZap(BuildContext context, int severity) async {
+    final bol = List.filled(severity, '⚡').join();
+    final showMax = _intensity.toInt() >= 65 ? '\n\nMAX 65%' : '';
+    final result = await showDialog<bool>(
+      context: context,
+      barrierDismissible: true,
+      builder: (ctx) => AlertDialog(
+        backgroundColor: const Color(0xFF1C1C2E),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20),
+        ),
+        title: Text(
+          'Confirm Zap? $bol',
+          style: TextStyle(color: Colors.white),
+        ),
+        content: Text(
+          'You are going to zap at ${_intensity.toInt()}% intensity! ${showMax}',
+          style: const TextStyle(color: Colors.white70),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(ctx).pop(false),
+            child: const Text(
+              'Cancel',
+              style: TextStyle(color: Color(0xFF4DA6FF)),
+            ),
+          ),
+          TextButton(
+            onPressed: () => Navigator.of(ctx).pop(true),
+            child: const Text(
+              'Confirm',
+              style: TextStyle(color: Color(0xFFFF3B30)),
+            ),
+          ),
+        ],
+      ),
+    );
+
+    return result ?? false;
   }
 }
 
