@@ -34,6 +34,6 @@ Map<String, dynamic> _$$StimulusLogImplToJson(_$StimulusLogImpl instance) =>
 
 const _$StimulusTypeEnumMap = {
   StimulusType.zap: 'zap',
-  StimulusType.vibrate: 'vibrate',
+  StimulusType.vibe: 'vibe',
   StimulusType.beep: 'beep',
 };

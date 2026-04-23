@@ -53,7 +53,7 @@ Map<String, dynamic> _$$ScheduledStimulusImplToJson(
 
 const _$StimulusTypeEnumMap = {
   StimulusType.zap: 'zap',
-  StimulusType.vibrate: 'vibrate',
+  StimulusType.vibe: 'vibe',
   StimulusType.beep: 'beep',
 };
 

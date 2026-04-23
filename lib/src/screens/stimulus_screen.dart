@@ -20,7 +20,7 @@ class _StimulusScreenState extends ConsumerState<StimulusScreen> {
 
   Color get _accentColor => switch (_selectedType) {
         StimulusType.zap => const Color(0xFFFF3B30),
-        StimulusType.vibrate => const Color(0xFF007AFF),
+        StimulusType.vibe => const Color(0xFF007AFF),
         StimulusType.beep => const Color(0xFFAF52DE),
       };
 
@@ -55,9 +55,9 @@ class _StimulusScreenState extends ConsumerState<StimulusScreen> {
                     child: Row(
                       children: [
                         _TypeButton(
-                          type: StimulusType.vibrate,
+                          type: StimulusType.vibe,
                           icon: Icons.vibration_rounded,
-                          label: 'Vibrate',
+                          label: 'Vibe',
                           color: const Color(0xFF007AFF),
                           selected: _selectedType,
                           onTap: (t) => setState(() => _selectedType = t),

@@ -57,7 +57,7 @@ class _HabitFormScreenState extends ConsumerState<HabitFormScreen> {
 
   Color get _stimulusColor => switch (_stimulusType) {
         StimulusType.zap => const Color(0xFFFF3B30),
-        StimulusType.vibrate => const Color(0xFF007AFF),
+        StimulusType.vibe => const Color(0xFF007AFF),
         StimulusType.beep => const Color(0xFFAF52DE),
         null => const Color(0xFF007AFF),
       };
@@ -154,7 +154,7 @@ class _HabitFormScreenState extends ConsumerState<HabitFormScreen> {
                     ),
                     segments: const [
                       ButtonSegment(value: null, label: Text('None')),
-                      ButtonSegment(value: StimulusType.vibrate, label: Text('Vibe')),
+                      ButtonSegment(value: StimulusType.vibe, label: Text('Vibe')),
                       ButtonSegment(value: StimulusType.zap, label: Text('Zap')),
                       ButtonSegment(value: StimulusType.beep, label: Text('Beep')),
                     ],

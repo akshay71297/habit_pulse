@@ -16,7 +16,7 @@ class ScheduleFormScreen extends ConsumerStatefulWidget {
 class _ScheduleFormScreenState extends ConsumerState<ScheduleFormScreen> {
   final _formKey = GlobalKey<FormState>();
   final _nameCtrl = TextEditingController();
-  StimulusType _stimulusType = StimulusType.vibrate;
+  StimulusType _stimulusType = StimulusType.vibe;
   double _intensity = 50;
   DateTime _scheduledTime = DateTime.now().add(const Duration(minutes: 5));
   bool _isRecurring = false;
@@ -34,16 +34,17 @@ class _ScheduleFormScreenState extends ConsumerState<ScheduleFormScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF2F2F7),
+      backgroundColor: const Color(0xFF0D0D20),
       appBar: AppBar(
-        backgroundColor: const Color(0xFFF2F2F7).withOpacity(0.9),
+        backgroundColor: const Color(0xFF0D0D20).withOpacity(0.95),
         elevation: 0,
         scrolledUnderElevation: 0,
         centerTitle: true,
+        foregroundColor: Colors.white,
         title: const Text('New Schedule', style: TextStyle(fontWeight: FontWeight.w600)),
         leading: TextButton(
           onPressed: () => context.pop(),
-          child: const Text('Cancel', style: TextStyle(fontSize: 16, color: Color(0xFF007AFF))),
+          child: const Text('Cancel', style: TextStyle(fontSize: 16, color: Color(0xFF4DA6FF))),
         ),
         leadingWidth: 80,
         actions: [
@@ -84,7 +85,7 @@ class _ScheduleFormScreenState extends ConsumerState<ScheduleFormScreen> {
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                     ),
                     segments: const [
-                      ButtonSegment(value: StimulusType.vibrate, label: Text('Vibrate')),
+                      ButtonSegment(value: StimulusType.vibe, label: Text('Vibe')),
                       ButtonSegment(value: StimulusType.zap, label: Text('Zap')),
                       ButtonSegment(value: StimulusType.beep, label: Text('Beep')),
                     ],

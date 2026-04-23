@@ -27,7 +27,7 @@ class AppConstants {
   static const Duration backgroundTaskFrequency = Duration(minutes: 15);
 }
 
-enum StimulusType { zap, vibrate, beep }
+enum StimulusType { zap, vibe, beep }
 
 enum HabitType { good, bad }
 

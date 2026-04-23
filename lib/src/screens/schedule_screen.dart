@@ -84,7 +84,7 @@ class _ScheduleCard extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final color = switch (schedule.stimulusType) {
       StimulusType.zap => const Color(0xFFFF3B30),
-      StimulusType.vibrate => const Color(0xFF007AFF),
+      StimulusType.vibe => const Color(0xFF007AFF),
       StimulusType.beep => const Color(0xFFAF52DE),
     };
 
